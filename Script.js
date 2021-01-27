@@ -1,8 +1,8 @@
 "use sctrict";
 
-let numberOfFilms;
-
-numberOfFilms = +prompt("Сколько фильмоф вы уже посмотрели", "");
+let numberOfFilms,
+     opisanieFilm = 'Один из последних просмотренных фильмов?',
+     opisanieBall = 'На сколько оцениваете его?';
 
 let personalMovieDB = {
     count: numberOfFilms,
@@ -12,57 +12,57 @@ let personalMovieDB = {
     private: false
 };
 
-if (personalMovieDB.count < 10) {
-    alert('Маловато смотришь');
-} else if (personalMovieDB.count < 30) {
-    alert('Вы классный зритель');
-    } else {
-        alert('Вы киноман!');
-        };
+start();
+detectPersonalLevel();
+rememberMyFilms();
+writeYourGenres();
+showMyDB();
 
-// for ( let i=1, film, bal; i<=numberOfFilms; i++) {
+function start() {
+    numberOfFilms = +prompt("Сколько фильмоф вы уже посмотрели", "");
 
-//     film = prompt ("Один из последних просмотренных фильмов?", "");
-
-//         if (film.length == 0) {
-//             alert('Наебать меня хочешь? Вводи фильм');
-//             i--;
-//             continue;
-//         } else  if (film.length > 50){
-//             alert('Наебать меня хочешь? Вводи фильм');
-//             i--;
-//             continue;
-//             } else{
-//     for (let i1=1, bal; i1 < 2; i1++) {
-
-//     bal = prompt("На сколько оцениваете его?", "");
-  
-//         if (bal.length == 0) {
-//             alert('Наебать меня хочешь? Вводи фильм');
-//             i1--;
-//             continue;
-//         }
-//         personalMovieDB.movies[film] = bal;
-//     }
-//             }
-// }
-
-for ( let i=1, film, bal; i<=numberOfFilms; i++) {
-    film = prompt ("Один из последних просмотренных фильмов?", "");
-
-        if (film != null && film.length != 0 && film.length < 50) {
-            bal = prompt('На сколько оцениваете его?', '');
-                if (bal != null && bal != 0){
-                personalMovieDB.movies[film] = bal;
-                } else {
-                    alert('Наебать меня хочешь? Пиши нормально');
-                    i--;
-                }
-        } else {
-            alert('Наебать меня хочешь? Вводи фильм');
-            i--;
-        }
-   
+    while (numberOfFilms == ''|| numberOfFilms == null || isNaN(numberOfFilms)) {
+        numberOfFilms = +prompt("Сколько фильмоф вы уже посмотрели", "");
+    }
 }
 
-console.log(personalMovieDB);
+function detectPersonalLevel () {
+    if (personalMovieDB.count < 10) {
+        alert('Маловато смотришь');
+    } else if (personalMovieDB.count < 30) {
+        alert('Вы классный зритель');
+        } else {
+            alert('Вы киноман!');
+            }
+}
+
+function showMyDB () {
+    if (personalMovieDB.private == 0) {
+        console.log(personalMovieDB);
+    }
+}
+
+function writeYourGenres () {
+    for (let i = 0; i < 3; i++) {
+        personalMovieDB.genres[i] = prompt ('Ваш любимый жанр под номером ' + (i+1));
+    }
+}
+
+function  check (whatChecking, opisanie) {
+    whatChecking = prompt(opisanie, '');
+
+    while (whatChecking == null || whatChecking.length == 0 || whatChecking.length > 50) {
+        alert('Наебать меня хочешь? Пиши нормально');
+        whatChecking = prompt(opisanie, '');
+    }
+    return whatChecking;
+}
+
+function rememberMyFilms () {
+    for ( let i=0; i < numberOfFilms; i++){
+        
+        personalMovieDB.movies[check ('', opisanieFilm)] = check ('', opisanieBall);
+        // personalMovieDB.movies[film] = bal;
+    }
+    
+}
