@@ -1,4 +1,4 @@
-"use sctrict";
+"use strict";
 
 let numberOfFilms,
      opisanieFilm = 'Один из последних просмотренных фильмов?',
@@ -24,6 +24,7 @@ function start() {
     while (numberOfFilms == ''|| numberOfFilms == null || isNaN(numberOfFilms)) {
         numberOfFilms = +prompt("Сколько фильмоф вы уже посмотрели", "");
     }
+    personalMovieDB.count = numberOfFilms;
 }
 
 function detectPersonalLevel () {
@@ -62,7 +63,6 @@ function rememberMyFilms () {
     for ( let i=0; i < numberOfFilms; i++){
         
         personalMovieDB.movies[check ('', opisanieFilm)] = check ('', opisanieBall);
-        // personalMovieDB.movies[film] = bal;
     }
     
 }
